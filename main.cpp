@@ -171,57 +171,41 @@ class Colleges{
 
 
 //read from the 2 data files csv.
-void readFromDataset(vector<College>& collegeList){
-    vector<string> row;
+void readFromDataset(){
+    ;
     College currCollege;
-    string theSchoolName;
-    string schoolType;
     //SchoolType theType;
     //Region theRegion;
-    double theStartingMedianSalary;
-    double theMidCareerMedianSalary;
-    double theMidCareer10th;
-    double  theMidCareer25th;
-    double theMidCareer75th;
-    double theMidCareer90th;
-    //file pointer
-    ifstream fin;
+    
+    string fname = "dataset/salaries-by-college-type.csv";
+ 
+	vector<string> row;
+	string line, word;
+ 
+	fstream file (fname, ios::in);
+	if(file.is_open())
+	{
+		while(getline(file, line))
+		{
+			row.clear();
+			stringstream str(line);
+ 
+			while(getline(str, word, ',')){
+        row.push_back(word);
+        //college.set
+      } 
+      //college.setName(row[0]);
+      //college.setType(row[1]);
+      //college.setStartingSalary(stod(row[2]));
+      //...
 
-    //open an existing record
-    fin.open("/Users/angellopez/Documents/SFSU/CSC 340/salaries-by-college-type.xls", ios::in);
-    if (!fin.is_open()){
-        cout << "Could not open file salaries-by-college-type.csv" << endl;
-        return;
+      //CollegesBySchoolType.push_back(college);
+		}
+	}
+	else{
+		cout<<"Could not open the file\n";
     }
-    
-    //traverse file
-    while(!fin.eof()){
-        row.clear();
-        
-        fin >> theSchoolName;
-        fin >> schoolType;
-        fin >> theStartingMedianSalary;
-        fin >> theMidCareerMedianSalary;
-        fin >> theMidCareer10th;
-        fin >> theMidCareer25th;
-        fin >> theMidCareer75th;
-        fin >> theMidCareer90th;
-        
-        if (!fin.fail()){
-            currCollege.setSchoolName(theSchoolName);
-            currCollege.setSchoType(schoolType);
-            currCollege.setStartingMedianSalary(theStartingMedianSalary);
-            currCollege.setMidCareerMedianSalary(theMidCareerMedianSalary);
-            currCollege.setMidCareer10th(theMidCareer10th);
-            currCollege.setMidCareer25th(theMidCareer25th);
-            currCollege.setMidCareer75th(theMidCareer75th);
-            currCollege.setMidCareer90th(theMidCareer90th);
-            collegeList.push_back(currCollege);
-        }
-    }
-    
-    //close file
-    fin.close();
+	
 }
 
 //display colleges by type

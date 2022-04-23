@@ -18,14 +18,16 @@ class Colleges{
     vector<College> collegesByRegion;
 
   public:
-    //read data from school by region
+    //read data from school by type
     void readDataFromSchoolByType(string fileDir);
     
     //read data from school by region
     void readDataFromSchoolByRegion(string fileDir);
 
+    //print out data from school by type
     void printCollegesBySchoolType();
 
+    //print out data from school by region
     void printCollegesByRegion();
     
     //Rank all the colleges that has the same school type

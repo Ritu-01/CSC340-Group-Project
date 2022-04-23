@@ -99,7 +99,7 @@ void Colleges::printCollegesBySchoolType(){
   cout << "-----------------------------------------|--------------|------------------|--------------------|---------------" << endl;
   for(auto college: collegesBySchoolType){
     string tempName = college.getSchoolName();
-    string tempType = college.getSchoolType();
+    string tempType = college.getSchoolTypeStr();
     
     tempName.resize(40,' ');
     tempType.resize(12,' ');
@@ -112,6 +112,7 @@ void Colleges::printCollegesBySchoolType(){
     cout << "$" << left << setw(15) << setprecision(2) << college.getMidCareer90th();
     cout << endl;
   }
+  cout << endl;
 }
 
 void Colleges::printCollegesByRegion(){
@@ -125,7 +126,7 @@ void Colleges::printCollegesByRegion(){
   cout << "-----------------------------------------|---------------|------------------|--------------------|---------------" << endl;
   for(auto college: collegesByRegion){
     string tempName = college.getSchoolName();
-    string tempRegion = college.getSchoolRegion();
+    string tempRegion = college.getSchoolRegionStr();
     
     tempName.resize(40,' ');
     tempRegion.resize(13,' ');
@@ -138,5 +139,6 @@ void Colleges::printCollegesByRegion(){
     cout << "$" << left << setw(15) << setprecision(2) << college.getMidCareer90th();
     cout << endl;
   }
+  cout << endl;
 }
 

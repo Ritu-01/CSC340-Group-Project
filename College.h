@@ -8,24 +8,18 @@
 #include <string>
 #include <sstream>
 #include <cstring>
+#include "EnumTypeRegion.h"
 
 using namespace std;
 
-//enum class school type
-enum class SchoolType{
-    Engineering, Party, Liberal_Arts, Ivy_League, States};
 
-//enum class school region
-enum class Region{California, Western, Midwestern, Southern, Northeastern};
 
 //college class
 class College{
   private:
     string schoolName;
-    string schoolType;
     SchoolType type;
     Region region;
-    string schoolRegion;
     double StartingMedianSalary;
     double MidCareerMedianSalary;
     double MidCareer10th;
@@ -37,7 +31,6 @@ class College{
     //Setter
     void setSchoolName(string theSchoolName);
     void setSchoolType(string theType);
-    void setSchoType(SchoolType schoolType);
     void setSchoolRegion(string theRegion);
     void setStartingMedianSalary(double startingMed);
     void setMidCareerMedianSalary(double midCareer);
@@ -48,9 +41,10 @@ class College{
 
     //Getter
     string getSchoolName() const;
-    string getSchoolType() const;
-    SchoolType getSchoType() const;
-    string getSchoolRegion() const;
+    string getSchoolTypeStr() const;
+    SchoolType getSchoolType() const;
+    string getSchoolRegionStr() const;
+    Region getSchoolRegion() const;
     double getStartingMedianSalary() const;
     double getMidCareerMedianSalary() const;
     double getMidCareer10th() const;

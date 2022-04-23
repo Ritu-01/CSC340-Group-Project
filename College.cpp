@@ -7,17 +7,12 @@ void College::setSchoolName(string theSchoolName){
 
 //set school type string
 void College::setSchoolType(string theType){
-  schoolType = theType;
-}
-
-//set school type
-void College::setSchoType(SchoolType schoolType){
-  type = schoolType;
+  type = toEnumSchoolType(theType);
 }
 
 //set school region
 void College::setSchoolRegion(string theRegion){
-  schoolRegion = theRegion;
+  region = toEnumRegion(theRegion);
 }
 
 //set starting median salary
@@ -55,19 +50,24 @@ string College::getSchoolName() const{
   return schoolName;
 }
 
-//get school type string
-string College::getSchoolType() const{
-  return schoolType;
-}
-
-//get school type
-SchoolType College::getSchoType() const{
+//get school type 
+SchoolType College::getSchoolType() const{
   return type;
 }
 
+//get school type string
+string College::getSchoolTypeStr() const{
+  return toStrSchoolType(type);
+}
+
 //get school region
-string College::getSchoolRegion() const{
-  return schoolRegion;
+Region College::getSchoolRegion() const{
+  return region;
+}
+
+//get school region string
+string College::getSchoolRegionStr() const{
+  return toStrSchoolRegion(region);
 }
 
 //get starting salary

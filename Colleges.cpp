@@ -72,7 +72,7 @@ void Colleges::readDataFromSchoolByRegion(string fileDir){
             row.push_back(word);
         }
         college.setSchoolName(row[0]);
-        college.setSchoolType(row[1]);
+        college.setSchoolRegion(row[1]);
         college.setStartingMedianSalary(stod(row[2]));
         college.setMidCareerMedianSalary(stod(row[3]));
         college.setMidCareer10th(stod(row[4]));
@@ -89,12 +89,14 @@ void Colleges::readDataFromSchoolByRegion(string fileDir){
 }
 
 void Colleges::printCollegesBySchoolType(){
+  cout << endl;
   cout << left << setw(40) << "School Name" << " | ";
   cout << left << setw(12) << "School Type" << " | ";
-  cout << left << setw(15) << "Starting Median" << " | ";
-  cout << left << setw(17) << "Mid-Career Median" << " | ";
+  cout << left << setw(16) << "Starting Median" << " | ";
+  cout << left << setw(18) << "Mid-Career Median" << " | ";
   cout << left << setw(15) << "Mid-Career 90th";
   cout << endl;
+  cout << "-----------------------------------------|--------------|------------------|--------------------|---------------" << endl;
   for(auto college: collegesBySchoolType){
     string tempName = college.getSchoolName();
     string tempType = college.getSchoolType();
@@ -113,21 +115,23 @@ void Colleges::printCollegesBySchoolType(){
 }
 
 void Colleges::printCollegesByRegion(){
+  cout << endl;
   cout << left << setw(40) << "School Name" << " | ";
   cout << left << setw(12) << "School Region" << " | ";
-  cout << left << setw(15) << "Starting Median" << " | ";
-  cout << left << setw(17) << "Mid-Career Median" << " | ";
+  cout << left << setw(16) << "Starting Median" << " | ";
+  cout << left << setw(18) << "Mid-Career Median" << " | ";
   cout << left << setw(15) << "Mid-Career 90th";
   cout << endl;
-  for(auto college: collegesBySchoolType){
+  cout << "-----------------------------------------|---------------|------------------|--------------------|---------------" << endl;
+  for(auto college: collegesByRegion){
     string tempName = college.getSchoolName();
     string tempRegion = college.getSchoolRegion();
     
     tempName.resize(40,' ');
-    tempRegion.resize(12,' ');
+    tempRegion.resize(13,' ');
 
     cout << left << setw(40) << tempName << " | ";
-    cout << left << setw(12) << tempRegion << " | ";
+    cout << left << setw(13) << tempRegion << " | ";
     cout << fixed;
     cout << "$" << left << setw(15) << setprecision(2) << college.getStartingMedianSalary() << " | ";
     cout << "$" << left << setw(17) << setprecision(2) << college.getMidCareerMedianSalary() << " | ";

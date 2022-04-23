@@ -38,12 +38,12 @@ public:
     }
     
     //set school type string
-    void setSchoType(string theType){
+    void setSchoolType(string theType){
         schoolType = theType;
     }
     
     //set school type
-    void setSchoolType(SchoolType schoolType){
+    void setSchoType(SchoolType schoolType){
         type = schoolType;
     }
     
@@ -88,12 +88,12 @@ public:
     }
     
     //get school type string
-    string getSchoType() const{
+    string getSchoolType() const{
         return schoolType;
     }
     
     //get school type
-    SchoolType getSchoolType() const{
+    SchoolType getSchoType() const{
         return type;
     }
     
@@ -152,13 +152,17 @@ class Colleges{
     vector<College> CollegesBySchoolType;
     vector<College> CollegesByRegion;
     
-    //read from the 2 data files csv.
-    void readFromDataset();
+    //read data from school by region
+    void readDataFromSchoolByType(vector<College> CollegesBySchoolType);
+    
+    //read data from school by region
+    void readDataFromSchoolByRegion(vector<College> CollegesByRegion);
     
     //Rank all the colleges that has the same school type
     vector<pair<int,College>> RankCollegesBySchoolType(SchoolType theType);
     
     //Rank all the colleges that has the same Region
+    //which schools rank high by their regions
     vector<pair<int,College>> RankCollegesByRegion(Region theRegion);
     
     //Ranl all colleges by Region e.g. 1. California, 2. Northeastern,
@@ -171,71 +175,114 @@ class Colleges{
 
 
 //read from the 2 data files csv.
-void readFromDataset(){
-    ;
-    College currCollege;
-    //SchoolType theType;
-    //Region theRegion;
+void readDataFromSchoolBytype(vector<College>& CollegesBySchoolType){
+    vector<string> row;
+    College college;
+    string fileName1, word;
     
-    string fname = "dataset/salaries-by-college-type.csv";
- 
-	vector<string> row;
-	string line, word;
- 
-	fstream file (fname, ios::in);
-	if(file.is_open())
-	{
-		while(getline(file, line))
-		{
-			row.clear();
-			stringstream str(line);
- 
-			while(getline(str, word, ',')){
-        row.push_back(word);
-        //college.set
-      } 
-      //college.setName(row[0]);
-      //college.setType(row[1]);
-      //college.setStartingSalary(stod(row[2]));
-      //...
+    //file pointer
+    ifstream fin;
 
-      //CollegesBySchoolType.push_back(college);
-		}
-	}
-	else{
-		cout<<"Could not open the file\n";
+    //open an existing record
+    fin.open("dataset/salaries-by-college-type.csv", ios::in);
+    if (!fin.is_open()){
+        cout << "Could not open file salaries-by-college-type.csv ###" << endl;
+        return;
     }
-	
+    
+    //fin >> fileName1;
+    //getline(fin, fileName1);
+    int counter = 0;
+    while (getline(fin, fileName1)){
+        if (counter > 0){
+        row.clear();
+        stringstream str(fileName1);
+        
+        while (getline(str, word, ',')){
+            row.push_back(word);
+        }
+        college.setSchoolName(row[0]);
+        college.setSchoolType(row[1]);
+            cout << row[2] << endl;
+        college.setStartingMedianSalary(stod(row[2]));
+        college.setMidCareerMedianSalary(stod(row[3]));
+        college.setMidCareer10th(stod(row[4]));
+        college.setMidCareer25th(stod(row[5]));
+        college.setMidCareer75th(stod(row[6]));
+        college.setMidCareer90th(stod(row[7]));
+        CollegesBySchoolType.push_back(college);
+        }
+        counter++;
+    }
+    cout << endl;
+    cout << CollegesBySchoolType.at(8).getSchoolName() << endl;
+    cout << endl;
+    
+    //close file
+    fin.close();
 }
 
-//display colleges by type
-void displayCollegesByType(vector<College>& collegeType){
-    cout << "COLLEGES BY TYPE \n" << endl;
+//read data from school by region
+void readDataFromSchoolByRegion(vector<College> CollegesByRegion){
+    vector<string> row;
+    College college;
+    string fileName1, word;
     
-    for (int i = 0; i < collegeType.size(); i++){
-        cout << "School Name : " << collegeType.at(i).getSchoolName() << endl;
-        cout << "School Type : " << collegeType.at(i).getSchoType() << endl;
-        cout << "Starting Median Salary : " << collegeType.at(i).getStartingMedianSalary() << endl;
-        cout << "Mid Career Median Salary : " << collegeType.at(i).getMidCareerMedianSalary() << endl;
-        cout << "Mid Career 10th : " << collegeType.at(i).getMidCareer10th() << endl;
-        cout << "Mid Career 25th : " << collegeType.at(i).getMidCareer25th() << endl;
-        cout << "Mid Career 75th : " << collegeType.at(i).getMidCareer75th() << endl;
-        cout << "Mid Career 90th : " << collegeType.at(i).getMidCareer90th() << endl;
+    //file pointer
+    ifstream fin;
+
+    //open an existing record
+    fin.open("dataset/salaries-by-region.csv", ios::in);
+    if (!fin.is_open()){
+        cout << "Could not open file salaries-by-college-type.csv ###" << endl;
+        return;
     }
+    
+    //getline(fin, fileName1);
+    int counter = 0;
+    while (getline(fin, fileName1)){
+        if (counter > 0){
+        row.clear();
+        stringstream str(fileName1);
+        
+        while (getline(str, word, ',')){
+            row.push_back(word);
+        }
+        college.setSchoolName(row[0]);
+        college.setSchoolType(row[1]);
+        college.setStartingMedianSalary(stod(row[2]));
+        college.setMidCareerMedianSalary(stod(row[3]));
+        college.setMidCareer10th(stod(row[4]));
+        college.setMidCareer25th(stod(row[5]));
+        college.setMidCareer75th(stod(row[6]));
+            cout << row[7] << endl;
+        college.setMidCareer90th(stod(row[7]));
+        CollegesByRegion.push_back(college);
+        }
+        counter++;
+    }
+    
+    cout << endl;
+    cout << CollegesByRegion.at(16).getSchoolName() << endl;
+    cout << endl;
+    
+    //close file
+    fin.close();
 }
+
 int main() {
     // insert code here...
     cout << "Hello, World!\n";
     
-    vector<College> schoolList;
+    vector<College> collegeListByType;
+    vector<College> collegeListByRegion;
+
+    //read dataset from college by type
+    readDataFromSchoolBytype(collegeListByType);
     
-    //read from dateset
-    readFromDataset(schoolList);
+    //read dataset from college by region
+    readDataFromSchoolByRegion(collegeListByRegion);
     
-    //display college list by type
-    displayCollegesByType(schoolList);
-    
-    cout << " \n \n \n test pass \n " << endl;
+    cout << " \n \n test pass \n " << endl;
     return 0;
 }
-

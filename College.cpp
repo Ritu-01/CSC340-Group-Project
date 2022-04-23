@@ -16,8 +16,8 @@ void College::setSchoType(SchoolType schoolType){
 }
 
 //set school region
-void College::setSchoolRegion(Region theRegion){
-  region = theRegion;
+void College::setSchoolRegion(string theRegion){
+  schoolRegion = theRegion;
 }
 
 //set starting median salary
@@ -66,8 +66,8 @@ SchoolType College::getSchoType() const{
 }
 
 //get school region
-Region College::getSchoolRegion() const{
-  return region;
+string College::getSchoolRegion() const{
+  return schoolRegion;
 }
 
 //get starting salary

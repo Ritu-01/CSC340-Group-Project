@@ -6,7 +6,8 @@
 
 int main() {
     Colleges myColleges;
-    myColleges.readDataFromSchoolByRegion("dataset/salaries-by-college-type.csv");
-    myColleges.readDataFromSchoolByType("dataset/salaries-by-region.csv");
+    myColleges.readDataFromSchoolByType("dataset/salaries-by-college-type.csv");
+    myColleges.readDataFromSchoolByRegion("dataset/salaries-by-region.csv");
+    myColleges.printCollegesBySchoolType();
     return 0;
 }

@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <cstring>
+#include <iomanip>
 #include "College.h"
 
 using namespace std;
@@ -22,6 +23,10 @@ class Colleges{
     
     //read data from school by region
     void readDataFromSchoolByRegion(string fileDir);
+
+    void printCollegesBySchoolType();
+
+    void printCollegesByRegion();
     
     //Rank all the colleges that has the same school type
     vector<pair<int,College>> RankCollegesBySchoolType(SchoolType theType);

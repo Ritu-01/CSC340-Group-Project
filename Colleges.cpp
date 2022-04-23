@@ -1,4 +1,6 @@
 #include "Colleges.h"
+#include <iomanip>
+#include <ios>
 //read from the 2 data files csv.
 void Colleges::readDataFromSchoolByType(string fileDir){
     vector<string> row;
@@ -85,3 +87,52 @@ void Colleges::readDataFromSchoolByRegion(string fileDir){
     //close file
     fin.close();
 }
+
+void Colleges::printCollegesBySchoolType(){
+  cout << left << setw(40) << "School Name" << " | ";
+  cout << left << setw(12) << "School Type" << " | ";
+  cout << left << setw(15) << "Starting Median" << " | ";
+  cout << left << setw(17) << "Mid-Career Median" << " | ";
+  cout << left << setw(15) << "Mid-Career 90th";
+  cout << endl;
+  for(auto college: collegesBySchoolType){
+    string tempName = college.getSchoolName();
+    string tempType = college.getSchoolType();
+    
+    tempName.resize(40,' ');
+    tempType.resize(12,' ');
+
+    cout << left << setw(40) << tempName << " | ";
+    cout << left << setw(12) << tempType << " | ";
+    cout << fixed;
+    cout << "$" << left << setw(15) << setprecision(2) << college.getStartingMedianSalary() << " | ";
+    cout << "$" << left << setw(17) << setprecision(2) << college.getMidCareerMedianSalary() << " | ";
+    cout << "$" << left << setw(15) << setprecision(2) << college.getMidCareer90th();
+    cout << endl;
+  }
+}
+
+void Colleges::printCollegesByRegion(){
+  cout << left << setw(40) << "School Name" << " | ";
+  cout << left << setw(12) << "School Region" << " | ";
+  cout << left << setw(15) << "Starting Median" << " | ";
+  cout << left << setw(17) << "Mid-Career Median" << " | ";
+  cout << left << setw(15) << "Mid-Career 90th";
+  cout << endl;
+  for(auto college: collegesBySchoolType){
+    string tempName = college.getSchoolName();
+    string tempRegion = college.getSchoolRegion();
+    
+    tempName.resize(40,' ');
+    tempRegion.resize(12,' ');
+
+    cout << left << setw(40) << tempName << " | ";
+    cout << left << setw(12) << tempRegion << " | ";
+    cout << fixed;
+    cout << "$" << left << setw(15) << setprecision(2) << college.getStartingMedianSalary() << " | ";
+    cout << "$" << left << setw(17) << setprecision(2) << college.getMidCareerMedianSalary() << " | ";
+    cout << "$" << left << setw(15) << setprecision(2) << college.getMidCareer90th();
+    cout << endl;
+  }
+}
+

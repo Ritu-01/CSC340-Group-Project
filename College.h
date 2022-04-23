@@ -25,6 +25,7 @@ class College{
     string schoolType;
     SchoolType type;
     Region region;
+    string schoolRegion;
     double StartingMedianSalary;
     double MidCareerMedianSalary;
     double MidCareer10th;
@@ -37,7 +38,7 @@ class College{
     void setSchoolName(string theSchoolName);
     void setSchoolType(string theType);
     void setSchoType(SchoolType schoolType);
-    void setSchoolRegion(Region theRegion);
+    void setSchoolRegion(string theRegion);
     void setStartingMedianSalary(double startingMed);
     void setMidCareerMedianSalary(double midCareer);
     void setMidCareer10th(double mid10th);
@@ -49,7 +50,7 @@ class College{
     string getSchoolName() const;
     string getSchoolType() const;
     SchoolType getSchoType() const;
-    Region getSchoolRegion() const;
+    string getSchoolRegion() const;
     double getStartingMedianSalary() const;
     double getMidCareerMedianSalary() const;
     double getMidCareer10th() const;

@@ -42,11 +42,11 @@ class Colleges{
     //which schools rank high by their regions
     vector<College> RankCollegesByRegion(Region theRegion, bool output);
     
-    //Ranl all colleges by Region e.g. 1. California, 2. Northeastern,
-    vector<Region> RankRegion();
+    //Ranl all colleges and score by Region e.g. 1. California, 2. Northeastern,
+    vector<pair<Region,double>> RankRegion(bool output);
  
-    //Rank all colleges by school type e.g 1. Ivy League, 2. Engineering
-    vector<SchoolType> RankSchoolType();
+    //Rank all colleges and score by school type e.g 1. Ivy League, 2. Engineering
+    vector<pair<SchoolType,double>> RankSchoolType(bool output);
 
     double regionScorer(vector<College> colleges);
 

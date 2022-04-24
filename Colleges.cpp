@@ -206,20 +206,127 @@ vector<College> Colleges::RankCollegesByRegion(Region theRegion, bool output){
 }
 
 //Ranl all colleges by Region e.g. 1. California, 2. Northeastern,
-vector<Region> Colleges::RankRegion(){
-  vector<College> californiaColleges = RankCollegesByRegion(Region::California);
-  vector<College> westernColleges = RankCollegesByRegion(Region::Western);
-  vector<College> midwesternColleges = RankCollegesByRegion(Region::Midwestern);
-  vector<College> southernColleges = RankCollegesByRegion(Region::Southern);
-  vector<College> northeasternColleges = RankCollegesByRegion(Region::Northeastern);
+vector<pair<Region, double>> Colleges::RankRegion(bool output){
+  vector<College> californiaColleges = RankCollegesByRegion(Region::California, false);
+  vector<College> westernColleges = RankCollegesByRegion(Region::Western, false);
+  vector<College> midwesternColleges = RankCollegesByRegion(Region::Midwestern, false);
+  vector<College> southernColleges = RankCollegesByRegion(Region::Southern, false);
+  vector<College> northeasternColleges = RankCollegesByRegion(Region::Northeastern, false);
 
+  vector<pair<Region, double>> ranking;
+  pair<Region, double> temp1 (Region::California, regionScorer(californiaColleges));
+  pair<Region, double> temp2 (Region::Western, regionScorer(westernColleges));
+  pair<Region, double> temp3 (Region::Midwestern, regionScorer(midwesternColleges));
+  pair<Region, double> temp4 (Region::Southern, regionScorer(southernColleges));
+  pair<Region, double> temp5 (Region::Northeastern, regionScorer(northeasternColleges));
+  
+  ranking.push_back(temp1);
+  ranking.push_back(temp2);
+  ranking.push_back(temp3);
+  ranking.push_back(temp4);
+  ranking.push_back(temp5);
+
+  sort(ranking.begin(), ranking.end(), [](const pair<Region, double>& a, const pair<Region, double>& b) -> bool{
+    return a.second > b.second;
+  });
+  
+  if(output){
+    cout << endl;
+    cout << "Ranking Colleges by Region:" << endl;
+    cout << "Rank" << "   ";
+    cout << left << setw(18) << "School Region" << "   ";
+    cout << "Total Score of Region" << "   " << endl;
+    for(int i =0; i < ranking.size();i++){
+      cout  << right << setw(2) << i+1;
+      cout  << left << setw(5) << ".";
+      cout << left << setw(18) << toStrSchoolRegion(ranking[i].first);
+      cout << "          ";
+      cout  << fixed << setprecision(2);
+      cout << ranking[i].second << endl;
+    }
+  }
+  return ranking;
 }
  
 //Rank all colleges by school type e.g 1. Ivy League, 2. Engineering
-vector<SchoolType> RankSchoolType();
+vector<pair<SchoolType,double>> Colleges::RankSchoolType(bool output){
+  vector<College> engineeringColleges = RankCollegesBySchoolType(SchoolType::Engineering, false);
+  vector<College> partyColleges = RankCollegesBySchoolType(SchoolType::Party, false);
+  vector<College> liberalArtsColleges = RankCollegesBySchoolType(SchoolType::Liberal_Arts, false);
+  vector<College> ivyLeagueColleges = RankCollegesBySchoolType(SchoolType::Ivy_League, false);
+  vector<College> stateColleges = RankCollegesBySchoolType(SchoolType::State, false);
+
+  vector<pair<SchoolType, double>> ranking;
+  pair<SchoolType, double> temp1 (SchoolType::Engineering, schoolTypeScorer(engineeringColleges));
+  pair<SchoolType, double> temp2 (SchoolType::Party, schoolTypeScorer(partyColleges));
+  pair<SchoolType, double> temp3 (SchoolType::Liberal_Arts, schoolTypeScorer(liberalArtsColleges));
+  pair<SchoolType, double> temp4 (SchoolType::Ivy_League, schoolTypeScorer(ivyLeagueColleges));
+  pair<SchoolType, double> temp5 (SchoolType::State, schoolTypeScorer(stateColleges));
+  
+  ranking.push_back(temp1);
+  ranking.push_back(temp2);
+  ranking.push_back(temp3);
+  ranking.push_back(temp4);
+  ranking.push_back(temp5);
+
+  sort(ranking.begin(), ranking.end(), [](const pair<SchoolType, double>& a, const pair<SchoolType, double>& b) -> bool{
+    return a.second > b.second;
+  });
+  
+  if(output){
+    cout << endl;
+    cout << "Ranking Colleges by School Type:" << endl;
+    cout << "Rank" << "   ";
+    cout << left << setw(18) << "School Type" << "   ";
+    cout << "Total Score of School Type"  << endl;
+    for(int i =0; i < ranking.size();i++){
+      cout  << right << setw(2) << i+1;
+      cout  << left << setw(5) << ".";
+      cout << left << setw(18) << toStrSchoolType(ranking[i].first);
+      cout << "             ";
+      cout  << fixed << setprecision(2);
+      cout << ranking[i].second << endl;
+    }
+  }
+  return ranking;
+}
 
 double Colleges::regionScorer(vector<College> colleges){
+  //Top 10 colleges in a region only
+  double totalScore;
 
+  double midCareerMedianScore = 0;
+  double differenceStartMid = 0;
+  double midCareer25thScore = 0;
+  double midCareer75thScore = 0;
+
+  for(int i = 0; i < 10; i++){
+    midCareerMedianScore += colleges[i].getMidCareerMedianSalary();
+    differenceStartMid += colleges[i].getMidCareerMedianSalary() - colleges[i].getStartingMedianSalary();
+    midCareer25thScore += colleges[i].getMidCareer25th();
+    midCareer75thScore += colleges[i]. getMidCareer75th();
+  }
+
+  totalScore = (midCareerMedianScore + 0.5*differenceStartMid + midCareer25thScore + midCareer75thScore)/1000;
+  return totalScore;
 }
     
-double schoolTypeScorer(vector<College> colleges);
+double Colleges::schoolTypeScorer(vector<College> colleges){
+  //Top 8 colleges in a region only
+  double totalScore;
+
+  double midCareerMedianScore = 0;
+  double differenceStartMid = 0;
+  double midCareer25thScore = 0;
+  double midCareer75thScore = 0;
+
+  for(int i = 0; i < 8; i++){
+    midCareerMedianScore += colleges[i].getMidCareerMedianSalary();
+    differenceStartMid += colleges[i].getMidCareerMedianSalary() - colleges[i].getStartingMedianSalary();
+    midCareer25thScore += colleges[i].getMidCareer25th();
+    midCareer75thScore += colleges[i]. getMidCareer75th();
+  }
+
+  totalScore = (midCareerMedianScore + 0.5*differenceStartMid + midCareer25thScore + midCareer75thScore)/800;
+  return totalScore;
+}

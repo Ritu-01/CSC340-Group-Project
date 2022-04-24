@@ -8,7 +8,10 @@
 #include <sstream>
 #include <cstring>
 #include <iomanip>
+#include <utility>
+#include <algorithm>
 #include "College.h"
+
 
 using namespace std;
 
@@ -29,19 +32,25 @@ class Colleges{
 
     //print out data from school by region
     void printCollegesByRegion();
+
+    void printColleges(vector<College> colleges, string typeOrRegion);
     
     //Rank all the colleges that has the same school type
-    vector<pair<int,College>> RankCollegesBySchoolType(SchoolType theType);
+    vector<College> RankCollegesBySchoolType(SchoolType theType, bool output);
     
     //Rank all the colleges that has the same Region
     //which schools rank high by their regions
-    vector<pair<int,College>> RankCollegesByRegion(Region theRegion);
+    vector<College> RankCollegesByRegion(Region theRegion, bool output);
     
     //Ranl all colleges by Region e.g. 1. California, 2. Northeastern,
-    vector<pair<int, Region>> RankRegion();
+    vector<Region> RankRegion();
  
     //Rank all colleges by school type e.g 1. Ivy League, 2. Engineering
-    vector<pair<int, SchoolType>> RankSchoolType();
+    vector<SchoolType> RankSchoolType();
+
+    double regionScorer(vector<College> colleges);
+
+    double schoolTypeScorer(vector<College> colleges);
 
 };
 
